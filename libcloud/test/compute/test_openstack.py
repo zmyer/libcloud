@@ -1445,6 +1445,14 @@ class OpenStack_1_1_Tests(unittest.TestCase, TestCaseMixin):
         ret = self.driver.ex_stop_node(node)
         self.assertTrue(ret is True)
 
+    def test_ex_start_node(self):
+        node = Node(
+            id='12063', name=None, state=None,
+            public_ips=None, private_ips=None, driver=self.driver,
+        )
+        ret = self.driver.ex_start_node(node)
+        self.assertTrue(ret is True)
+
     def test_ex_suspend_node(self):
         node = Node(
             id='12063', name=None, state=None,
@@ -1480,6 +1488,7 @@ class OpenStack_1_1_Tests(unittest.TestCase, TestCaseMixin):
         self.assertEqual(snapshots[0].created, datetime.datetime(2012, 2, 29, 3, 50, 7, tzinfo=UTC))
         self.assertEqual(snapshots[0].extra['created'], "2012-02-29T03:50:07Z")
         self.assertEqual(snapshots[0].extra['name'], 'snap-001')
+        self.assertEqual(snapshots[0].name, 'snap-001')
         self.assertEqual(snapshots[0].state, VolumeSnapshotState.AVAILABLE)
 
         # invalid date is parsed as None
